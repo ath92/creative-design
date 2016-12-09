@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Testing the thing</title>
+        <!--<link href="style.css" type="text/css" rel="stylesheet">-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script>
+            $('document').ready(function(e){
+                
+                var url = "https://api.projectoxford.ai/emotion/v1.0/recognize", 
+                canvas = document.querySelector('canvas'), 
+                apiKey = "464a63fd5a6d4a46843f063e69634d35",
+                video = document.querySelector('video');
+
+                // Not showing vendor prefixes.
+                navigator.getUserMedia({video: true, audio: true}, function(localMediaStream) {
+                    video.src = window.URL.createObjectURL(localMediaStream);
+
+                    video.onloadedmetadata = function(e) {
+                      // Ready to go. Do some stuff.
+                    };
+                }, function(e) {
+                    console.log('Reeeejected!', e);
+                });
+                
+                //snippet to convert to binary
+                var toBinary = function(canvas) {
+                    var base64 = canvas.toDataURL('image/png'),
+                        bin = atob(base64.replace(/^.*,/, '')),
+                        buffer = new Uint8Array(bin.length);
+                    for (var i = 0; i < bin.length; i++) {
+                        buffer[i] = bin.charCodeAt(i);
+                    }
+                    return buffer;
+                }
+                
+                // the function to create and send our blob
+                var send = function() {
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, 320, 240);
+                    var buf = toBinary(canvas);
+                    
+                    blob = new Blob([buf.buffer], {
+                        type: 'image/png'
+                    });
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.onload = function(e) {
+                        var data = JSON.parse(this.response);
+                        var emotion = "neutral";
+                        if(data.length > 0){//faces recognized!
+                            var face = data[0];
+                            var maxVal = 0;
+                            $.each(face.scores, function(key, value) {
+                                if(value > maxVal){
+                                    maxVal = value;
+                                    emotion = key;
+                                }
+                            });
+                        }
+                        $('#emotion').html(emotion);
+                    };
+                    xhr.open('POST', url);
+                    xhr.setRequestHeader("Content-Type", "application/octet-stream");
+                    xhr.setRequestHeader("Ocp-Apim-Subscription-Key", apiKey);
+                    xhr.send(blob);
+                };
+
+                $('#button').click(function(e){
+                    send();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <video width="320" height="240" autoplay></video>
+        <canvas width="320" height="240"></canvas>
+        <a id="button" href="#">Send!</a>
+        <h1 id="emotion">None so far :(</h1>
+    </body>
+</html>
