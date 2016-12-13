@@ -47,6 +47,7 @@
                     var xhr = new XMLHttpRequest();
                     xhr.onload = function(e) {
                         var data = JSON.parse(this.response);
+                        console.log(data);
                         var emotion = "neutral";
                         if(data.length > 0){//faces recognized!
                             var face = data[0];
