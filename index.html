@@ -52,7 +52,7 @@
                             var face = data[0];
                             var maxVal = 0;
                             $.each(face.scores, function(key, value) {
-                                if(value > maxVal){
+                                if(key != "neutral" && value > maxVal){
                                     maxVal = value;
                                     emotion = key;
                                 }
