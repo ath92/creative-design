@@ -47,10 +47,10 @@
                     var xhr = new XMLHttpRequest();
                     xhr.onload = function(e) {
                         var data = JSON.parse(this.response);
-                        console.log(data);
                         var emotion = "neutral";
                         if(data.length > 0){//faces recognized!
                             var face = data[0];
+                            console.log(face.scores);
                             var maxVal = 0;
                             $.each(face.scores, function(key, value) {
                                 if(key != "neutral" && value > maxVal){
