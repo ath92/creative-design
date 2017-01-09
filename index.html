@@ -15,6 +15,17 @@
                 apiKey = "464a63fd5a6d4a46843f063e69634d35",
                 video = document.querySelector('video');
 
+                var responses = {anger: "Haha, look at them getting annoyed. Wonder if I could push it further?",
+                                 contempt: "Hell, why am I even talking to this person?",
+                                 disgust: "I think I have to puke.",
+                                 fear: "My god this person is scary. Wouldn't want to see them around kids...",
+                                 happiness: "Haha, this is great. I like talking to stupid people",
+                                 neutral: "This is awfully boring. Wonder if there's anyone else to talk to...",
+                                 sadness: "This conversation is just making me depressed.",
+                                 surprise: "That was actually interesting. Very unexpected from this person."
+                                }
+
+
                 // Not showing vendor prefixes.
                 navigator.getUserMedia({video: true, audio: true}, function(localMediaStream) {
                     video.src = window.URL.createObjectURL(localMediaStream);
@@ -62,7 +73,7 @@
                                 }
                             });
                         }
-                        $('#emotion').html(emotion);
+                        $('#emotion').html(responses[emotion]);
                     };
                     xhr.open('POST', url);
                     xhr.setRequestHeader("Content-Type", "application/octet-stream");
