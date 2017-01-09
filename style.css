@@ -2,4 +2,16 @@ canvas, video{
     transform: scale(-1, 1);
     display: none;
 }
+a{
+    display: none;
+}
 
+body{
+    background-color: black;
+}
+
+*{
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+}
