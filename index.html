@@ -3,8 +3,6 @@
     <head>
         <title>Testing the thing</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link href="style.css" type="text/css" rel="stylesheet">
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
@@ -90,6 +88,10 @@
                     setTimeout(timer, 3000);
                 }
                 timer();
+
+                //hide address bar
+
+                window.scroll(0,1);
             });
         </script>
     </head>
