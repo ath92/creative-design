@@ -73,6 +73,12 @@
                 $('#button').click(function(e){
                     send();
                 });
+
+                var timer = function(e){
+                    send();
+                    setTimeout(timer, 3000);
+                }
+                timer();
             });
         </script>
     </head>
