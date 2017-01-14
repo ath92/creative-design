@@ -75,6 +75,10 @@
                         }
                         $('#emotion').html(responses[emotion]);
                     };
+                    xhr.onerror = function(e){
+                        console.log(e);
+                        setTimeout(send, 3000);
+                    }
                     xhr.open('POST', url);
                     xhr.setRequestHeader("Content-Type", "application/octet-stream");
                     xhr.setRequestHeader("Ocp-Apim-Subscription-Key", apiKey);
@@ -87,7 +91,6 @@
 
                 var timer = function(e){
                     send();
-                    setTimeout(timer, 3000);
                 }
                 timer();
 
