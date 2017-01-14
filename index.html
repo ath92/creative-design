@@ -47,6 +47,13 @@
                     return buffer;
                 }
                 
+                var blackImage = new Image();
+                blackImage.src = "loading-gif.gif";
+                var blackImageLoaded = false;
+                blackImage.onload = function(){
+                    blackImageLoaded = true;
+                }
+
                 // the function to create and send our blob
                 var send = function() {
                     var ctx = canvas.getContext('2d');
@@ -56,6 +63,11 @@
                     blob = new Blob([buf.buffer], {
                         type: 'image/png'
                     });
+
+                    if(blackImageLoaded){
+                        ctx.globalCompositeOperation = "screen";
+                        ctx.drawImage(blackImage, 0, 0, canvas.width, canvas.height);
+                    }
 
                     var xhr = new XMLHttpRequest();
                     xhr.onload = function(e) {
