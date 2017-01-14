@@ -63,7 +63,7 @@
                         var emotion = "neutral";
                         if(data.length > 0){//faces recognized!
                             var face = data[0];
-                            console.log(face.scores);
+                            console.log(face);
                             var maxVal = 0;
                             $.each(face.scores, function(key, value) {
                                 if(key != "neutral" && value > maxVal){
