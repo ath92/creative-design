@@ -39,4 +39,6 @@ h1{
     position: absolute;
     background-color: black;
     padding: 50px;
+    z-index: 2;
+    top: 0;
 }
