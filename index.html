@@ -73,6 +73,7 @@
                                 }
                             });
                         }
+                        setTimeout(send, 3000);
                         $('#emotion').html(responses[emotion]);
                     };
                     xhr.onerror = function(e){
