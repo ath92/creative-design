@@ -64,6 +64,7 @@
                         if(data.length > 0){//faces recognized!
                             var face = data[0];
                             console.log(face);
+                            ctx.strokeRect(face.faceRectangle.left, face.faceRectangle.top, face.faceRectangle.width, face.faceRectangle.height)
                             var maxVal = 0;
                             $.each(face.scores, function(key, value) {
                                 if(key != "neutral" && value > maxVal){
