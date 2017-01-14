@@ -42,3 +42,16 @@ h1{
     z-index: 2;
     top: 0;
 }
+
+img{
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    margin-left: -25%;
+    top: 100px;
+    display: none;
+}
+
+img.visible{
+    display: block
+}

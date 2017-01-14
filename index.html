@@ -13,6 +13,7 @@
                 canvas = document.querySelector('canvas'), 
                 apiKey = "464a63fd5a6d4a46843f063e69634d35",
                 video = document.querySelector('video');
+                gif = $('img');
 
                 var responses = {anger: "Haha, look at them getting annoyed. Wonder if I could push it furthe asd asd r?",
                                  contempt: "I really need to find better people to talk to.",
@@ -46,13 +47,7 @@
                     }
                     return buffer;
                 }
-                
-                var blackImage = new Image();
-                blackImage.src = "loading-gif.gif";
-                var blackImageLoaded = false;
-                blackImage.onload = function(){
-                    blackImageLoaded = true;
-                }
+
 
                 // the function to create and send our blob
                 var send = function() {
@@ -64,10 +59,8 @@
                         type: 'image/png'
                     });
 
-                    if(blackImageLoaded){
-                        ctx.globalCompositeOperation = "screen";
-                        ctx.drawImage(blackImage, 0, 0, canvas.width, canvas.height);
-                    }
+                    gif.addClass("visible");
+
 
                     var xhr = new XMLHttpRequest();
                     xhr.onload = function(e) {
@@ -76,7 +69,8 @@
                         if(data.length > 0){//faces recognized!
                             var face = data[0];
                             console.log(face);
-                            ctx.strokeRect(face.faceRectangle.left, face.faceRectangle.top, face.faceRectangle.width, face.faceRectangle.height)
+                            ctx.strokeRect(face.faceRectangle.left, face.faceRectangle.top, face.faceRectangle.width, face.faceRectangle.height);
+                            gif.removeClass("visible");
                             var maxVal = 0;
                             $.each(face.scores, function(key, value) {
                                 if(key != "neutral" && value > maxVal){
@@ -118,6 +112,7 @@
         <canvas width="320" height="240"></canvas>
         <a id="button" href="#">Send!</a>
         <h1 id="emotion">None so far :(</h1>
+        <img src="loading-gif.gif" alt="loading">
         <!-- nothing here -->
     </body>
 </html>
