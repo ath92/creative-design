@@ -8,6 +8,8 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
             $('document').ready(function(e){
+                var width = 320;
+                var height = 180;
                 
                 var url = "https://api.projectoxford.ai/emotion/v1.0/recognize", 
                 canvas = document.querySelector('canvas'), 
@@ -26,8 +28,8 @@
                                 }
                 var vid_constraints = {
                     mandatory: {
-                        maxHeight: 180,
-                        maxWidth: 320
+                        maxHeight: height,
+                        maxWidth: width
                     }
                 }
                 var constraints = { audio: false, video: vid_constraints }
@@ -58,7 +60,7 @@
                 // the function to create and send our blob
                 var send = function() {
                     var ctx = canvas.getContext('2d');
-                    ctx.drawImage(video, 0, 0, 480, 270);
+                    ctx.drawImage(video, 0, 0, width, height);
                     var buf = toBinary(canvas);
                     
                     blob = new Blob([buf.buffer], {
