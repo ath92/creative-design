@@ -24,10 +24,16 @@
                                  sadness: "This conversation is just making me depressed.",
                                  surprise: "That was actually interesting. Very unexpected from this person."
                                 }
-
+                var vid_constraints = {
+                    mandatory: {
+                        maxHeight: 180,
+                        maxWidth: 320
+                    }
+                }
+                var constraints = { audio: false, video: vid_constraints }
 
                 // Not showing vendor prefixes. asdjhasdkjhasd
-                navigator.getUserMedia({video: true, audio: true}, function(localMediaStream) {
+                navigator.getUserMedia(constraints, function(localMediaStream) {
                     video.src = window.URL.createObjectURL(localMediaStream);
 
                     video.onloadedmetadata = function(e) {
