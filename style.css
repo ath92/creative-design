@@ -50,6 +50,7 @@ img{
     margin-left: -25%;
     top: 100px;
     display: none;
+    opacity: .7;
 }
 
 img.visible{

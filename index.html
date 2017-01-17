@@ -52,7 +52,7 @@
                 // the function to create and send our blob
                 var send = function() {
                     var ctx = canvas.getContext('2d');
-                    ctx.drawImage(video, 0, 0, 320, 240);
+                    ctx.drawImage(video, 0, 0, 480, 270);
                     var buf = toBinary(canvas);
                     
                     blob = new Blob([buf.buffer], {
@@ -108,7 +108,7 @@
         </script>
     </head>
     <body>
-        <video width="320" height="240" autoplay></video>
+        <video width="100%" autoplay></video>
         <canvas width="320" height="240"></canvas>
         <a id="button" href="#">Send!</a>
         <h1 id="emotion">None so far :(</h1>
