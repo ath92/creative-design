@@ -60,7 +60,7 @@
                 // the function to create and send our blob
                 var send = function() {
                     var ctx = canvas.getContext('2d');
-                    var videoHeight = width * ($(window).height() / $(window).width());
+                    var videoHeight = width * ($('video').height() / $('video').width());
                     ctx.drawImage(video, 0, 0, width, videoHeight);
                     var buf = toBinary(canvas);
                     
