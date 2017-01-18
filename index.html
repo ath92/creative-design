@@ -9,7 +9,7 @@
         <script>
             $('document').ready(function(e){
                 var width = 320;
-                var height = 200;
+                var height = 160;
                 
                 var url = "https://api.projectoxford.ai/emotion/v1.0/recognize", 
                 canvas = document.querySelector('canvas'), 
@@ -60,7 +60,8 @@
                 // the function to create and send our blob
                 var send = function() {
                     var ctx = canvas.getContext('2d');
-                    ctx.drawImage(video, 0, 0, width, height);
+                    var videoHeight = width * ($(window).height() / $(window).width());
+                    ctx.drawImage(video, 0, 0, width, videoHeight);
                     var buf = toBinary(canvas);
                     
                     blob = new Blob([buf.buffer], {
