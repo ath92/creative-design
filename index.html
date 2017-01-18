@@ -112,6 +112,13 @@
                 //hide address bar
 
                 window.scroll(0,1);
+
+                $(window).resize(function(e){
+                    $('canvas').css({
+                        width: $('video').width(),
+                        height: $('video').height()
+                    });
+                });
             });
         </script>
     </head>
