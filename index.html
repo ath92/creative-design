@@ -61,7 +61,7 @@
                 var send = function() {
                     var ctx = canvas.getContext('2d');
                     var videoHeight = width * ($('video').height() / $('video').width());
-                    ctx.drawImage(video, 0, 0, $('video').width(), $('video').height());
+                    ctx.drawImage(video, 0, 0, 180 , 90);
                     var buf = toBinary(canvas);
                     
                     blob = new Blob([buf.buffer], {
