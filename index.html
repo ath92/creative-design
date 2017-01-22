@@ -10,22 +10,59 @@
             $('document').ready(function(e){
                 var width = 320;
                 var height = 160;
-                
-                var url = "https://api.projectoxford.ai/emotion/v1.0/recognize", 
-                canvas = document.querySelector('canvas'), 
+
+                var url = "https://api.projectoxford.ai/emotion/v1.0/recognize",
+                canvas = document.querySelector('canvas'),
                 apiKey = "464a63fd5a6d4a46843f063e69634d35",
                 video = document.querySelector('video');
                 gif = $('img');
 
-                var responses = {anger: "Haha, look at them getting annoyed. Wonder if I could push it furthe asd asd r?",
-                                 contempt: "I really need to find better people to talk to.",
-                                 disgust: "I think I have to puke.",
-                                 fear: "My god this person is scary. Wouldn't want to see them around kids...",
-                                 happiness: "Haha, this is great. I like talking to stupid people",
-                                 neutral: "This is awfully boring. Wonder if there's anyone else to talk to...",
-                                 sadness: "This conversation is just making me depressed.",
-                                 surprise: "That was actually interesting. Very unexpected from this person."
+                // Temporarily set name to always be "You" as no face recognition
+                var insertName = "you";
+                var responses = {anger: 	[	"Haha, look at " + insertName + " getting annoyed. Wonder if I could push it further?",
+				                                insertName + ", going red in the face. Boring.",
+				                                "Frowning really isn't a good look for " + insertName
+				                            ],
+
+
+                                contempt: 	[	"Typical " + insertName + ", always think you're above me",
+				                                "ooooooh sorry " + insertName + ", I am NOT worthy",
+				                                "The feeling is mutual"
+                                            ],
+
+
+                                disgust: 	[ 	"Whats wrong " + insertName + ", do I disgust you?",
+                                				insertName + ", we've only just begun",
+                                				"Meh, I've done worse"
+                                            ],
+
+                                fear: 		[ 	insertName + ", it's ok, don't worry. I only know eveything.",
+                                				"My god this person is scary. Wouldn't want to see them around kids...",
+                                				insertName + ", it'll be over soon..."
+                                            ],
+
+                                happiness: 	[	"Oh man, " + insertName + "'s smile makes me feel unwell",
+                                				"It's easy to smile " + insertName + " when you're oblvious to the world",
+                                				"Oh to be as blindly happy as " + insertName + ", what a world"
+                                            ],
+
+                                neutral: 	[	"This is awfully boring. Wonder if there's anyone else to talk to...",
+                                				insertName + ", you again... like blood from a stone",
+                                				"Ok it's " + insertName + ", smile and pretend you're listenig"
+                                            ],
+
+
+                                sadness: 	[	"This conversation is just making me depressed.",
+                                				"Don't be down, for " + insertName + " the only possible way is up",
+                                				"I should just end " + insertName + " now and do us all a favour"
+                                            ],
+
+                                surprise: 	[	insertName + "!!, stop gaping",
+                                				"A reaction, finally a reaction gaaahd " + insertName,
+                                				"Yeah, " + insertName + " that's right. I know you"
+                                            ],
                                 }
+
                 var vid_constraints = {
                     mandatory: {
                         maxHeight: height,
@@ -44,7 +81,7 @@
                 }, function(e) {
                     console.log('Reeeejected!', e);
                 });
-                
+
                 //snippet to convert to binary
                 var toBinary = function(canvas) {
                     var base64 = canvas.toDataURL('image/png'),
@@ -56,6 +93,13 @@
                     return buffer;
                 }
 
+                // Returns a random integer between min (included) and max (included)
+                // Using Math.round() will give you a non-uniform distribution!
+                function getRandomIntInclusive(min, max) {
+                  min = Math.ceil(min);
+                  max = Math.floor(max);
+                  return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
 
                 // the function to create and send our blob
                 var send = function() {
@@ -63,7 +107,7 @@
                     var videoHeight = width * ($('video').height() / $('video').width());
                     ctx.drawImage(video, 0, 0, 300 , 160);
                     var buf = toBinary(canvas);
-                    
+
                     blob = new Blob([buf.buffer], {
                         type: 'image/png'
                     });
@@ -77,7 +121,7 @@
                         var emotion = "neutral";
                         if(data.length > 0){//faces recognized!
                             var face = data[0];
-                            console.log(face);
+                            //console.log(face);
                             ctx.strokeRect(face.faceRectangle.left, face.faceRectangle.top, face.faceRectangle.width, face.faceRectangle.height);
                             gif.removeClass("visible");
                             var maxVal = 0;
@@ -89,7 +133,12 @@
                             });
                         }
                         setTimeout(send, 3000);
-                        $('#emotion').html(responses[emotion]);
+                        // Randomly select from 3 sentences as no faceRecognition currently just set insertName = you
+                        var responseNum = getRandomIntInclusive(0,2);
+                        console.log("The emotion detected is: " + emotion);
+                        console.log("The chosen response is: " + responses[emotion][responseNum]);
+
+                        $('#emotion').html(responses[emotion][responseNum]);
                     };
                     xhr.onerror = function(e){
                         console.log(e);
