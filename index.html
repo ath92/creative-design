@@ -134,7 +134,7 @@
                         }
                         setTimeout(send, 3000);
                         // Randomly select from 3 sentences as no faceRecognition currently just set insertName = you
-                        var responseNum = getRandomIntInclusive(0,2);
+                        var responseNum = getRandomIntInclusive(0,responses[emotion].length - 1);
                         console.log("The emotion detected is: " + emotion);
                         console.log("The chosen response is: " + responses[emotion][responseNum]);
 
