@@ -96,6 +96,8 @@
                 var alreadyZero = false;
                 var videoFreezeTimer = function(e){
                     if(video.currentTime == previousCurrentTime){
+                        previousCurrentTime = video.currenTime;
+                        console.log(video.currenTime);
                         if(!alreadyZero && video.currentTime == 0){
                             alreadyZero = true;
                             return;
