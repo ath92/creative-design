@@ -92,6 +92,8 @@
 
                 loadCamera();
 
+
+                //Fix the stream when
                 var previousCurrentTime = 100;
                 var alreadyZero = false;
                 var videoFreezeTimer = function(e){
@@ -112,9 +114,6 @@
 
                     }
                     previousCurrentTime = video.currentTime;
-
-
-
                     setTimeout(videoFreezeTimer, 1100);
                 }
                 videoFreezeTimer();
@@ -168,14 +167,16 @@
                                     emotion = key;
                                 }
                             });
+
+                            // Randomly select from 3 sentences as no faceRecognition currently just set insertName = you
+                            var responseNum = getRandomIntInclusive(0,responses[emotion].length - 1);
+                            console.log("The emotion detected is: " + emotion);
+                            console.log("The chosen response is: " + responses[emotion][responseNum]);
+
+                            $('#emotion').html(responses[emotion][responseNum]);
+
                         }
                         setTimeout(send, 3000);
-                        // Randomly select from 3 sentences as no faceRecognition currently just set insertName = you
-                        var responseNum = getRandomIntInclusive(0,responses[emotion].length - 1);
-                        console.log("The emotion detected is: " + emotion);
-                        console.log("The chosen response is: " + responses[emotion][responseNum]);
-
-                        $('#emotion').html(responses[emotion][responseNum]);
                     };
                     xhr.onerror = function(e){
                         console.log(e);
