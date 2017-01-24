@@ -95,7 +95,7 @@
                 var previousCurrentTime = 100;
                 var alreadyZero = false;
                 var videoFreezeTimer = function(e){
-                        console.log(video.currenTime);
+                        console.log(video.currentTime);
                     if(video.currentTime == previousCurrentTime){
                         if(!alreadyZero && video.currentTime == 0){
                             alreadyZero = true;
@@ -109,7 +109,7 @@
                             loadCamera();
                             alreadyZero = false;
                         }
-                        previousCurrentTime = video.currenTime;
+                        previousCurrentTime = video.currentTime;
 
                     }
 
