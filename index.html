@@ -158,6 +158,8 @@
                         if(data.length > 0){//faces recognized!
                             var face = data[0];
                             //console.log(face);
+                            ctx.strokeStyle = "#ff0000";
+                            ctx.lineWidth = 2;
                             ctx.strokeRect(face.faceRectangle.left, face.faceRectangle.top, face.faceRectangle.width, face.faceRectangle.height);
                             gif.removeClass("visible");
                             var maxVal = 0;
