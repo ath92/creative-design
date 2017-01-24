@@ -12,6 +12,10 @@
                 var width = 320;
                 var height = 160;
 
+
+                var stream;
+
+
                 var url = "https://api.projectoxford.ai/emotion/v1.0/recognize",
                 canvas = document.querySelector('canvas'),
                 apiKey = "464a63fd5a6d4a46843f063e69634d35",
@@ -76,7 +80,7 @@
                     // Not showing vendor prefixes. asdjhasdkjhasd
                     navigator.getUserMedia(constraints, function(localMediaStream) {
                         video.src = window.URL.createObjectURL(localMediaStream);
-
+                        stream = localMediaStream;
                         video.onloadedmetadata = function(e) {
                           // Ready to go. Do some stuff.
                         };
@@ -87,6 +91,33 @@
                 }
 
                 loadCamera();
+
+                var previousCurrentTime = 100;
+                var alreadyZero = false;
+                var videoFreezeTimer = function(e){
+                    if(video.currentTime == previousCurrentTime){
+                        if(!alreadyZero && video.currentTime == 0){
+                            alreadyZero = true;
+                            return;
+                        }
+                        if(alreadyZero || video.currentTime !=0){
+                            //fix stream
+                            console.log("fixing stream!");
+                            stream.getTracks().forEach(function (track) {
+                                    track.stop();
+                                }
+                            )
+                            loadCamera();
+                            alreadyZero = false;
+                        }
+
+                    }
+
+
+
+                    setTimeout(videoFreezeTimer, 1100);
+                }
+                videoFreezeTimer();
 
                 //snippet to convert to binary
                 var toBinary = function(canvas) {
