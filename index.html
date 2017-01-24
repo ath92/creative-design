@@ -72,16 +72,19 @@
                 }
                 var constraints = { audio: false, video: vid_constraints }
 
-                // Not showing vendor prefixes. asdjhasdkjhasd
-                navigator.getUserMedia(constraints, function(localMediaStream) {
-                    video.src = window.URL.createObjectURL(localMediaStream);
+                var loadCamera = function(){
+                    // Not showing vendor prefixes. asdjhasdkjhasd
+                    navigator.getUserMedia(constraints, function(localMediaStream) {
+                        video.src = window.URL.createObjectURL(localMediaStream);
 
-                    video.onloadedmetadata = function(e) {
-                      // Ready to go. Do some stuff.
-                    };
-                }, function(e) {
-                    console.log('Reeeejected!', e);
-                });
+                        video.onloadedmetadata = function(e) {
+                          // Ready to go. Do some stuff.
+                        };
+                    }, function(e) {
+                        console.log('Reeeejected!', e);
+                        loadCamera();
+                    });
+                }
 
                 //snippet to convert to binary
                 var toBinary = function(canvas) {
