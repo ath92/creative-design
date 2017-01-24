@@ -96,13 +96,10 @@
                 var alreadyZero = false;
                 var videoFreezeTimer = function(e){
                     if(video.currentTime == previousCurrentTime){
-                        previousCurrentTime = video.currenTime;
                         console.log(video.currenTime);
                         if(!alreadyZero && video.currentTime == 0){
                             alreadyZero = true;
-                            return;
-                        }
-                        if(alreadyZero || video.currentTime !=0){
+                        }else if(alreadyZero || video.currentTime !=0){
                             //fix stream
                             console.log("fixing stream!");
                             stream.getTracks().forEach(function (track) {
@@ -112,6 +109,7 @@
                             loadCamera();
                             alreadyZero = false;
                         }
+                        previousCurrentTime = video.currenTime;
 
                     }
 
